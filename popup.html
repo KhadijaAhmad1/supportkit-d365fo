@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SupportKit for D365 F&amp;O</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">SupportKit</span>
+      <span class="brand-sub">D365 F&amp;O</span>
+    </div>
+    <span id="envBadge" class="env-badge hidden"></span>
+  </header>
+
+  <div id="notD365" class="offline hidden">
+    <p>This tab is not a Dynamics 365 F&amp;O environment.</p>
+    <p class="dim">Open your D365 environment, then click SupportKit again. The Tables and Data tools below still work if you set a base URL.</p>
+  </div>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="context" role="tab">Context</button>
+    <button class="tab" data-tab="tables" role="tab">Tables</button>
+    <button class="tab" data-tab="data" role="tab">Data</button>
+    <button class="tab" data-tab="snapshot" role="tab">Snapshot</button>
+  </nav>
+
+  <!-- ── CONTEXT ─────────────────────────────────────────────── -->
+  <section id="tab-context" class="panel active">
+    <div class="kv-strip" id="contextStrip">
+      <div class="kv"><span class="k">Environment</span><button class="v copy" id="ctxEnv" title="Copy">—</button></div>
+      <div class="kv"><span class="k">Host</span><button class="v copy" id="ctxHost" title="Copy">—</button></div>
+      <div class="kv"><span class="k">Legal entity</span><button class="v copy" id="ctxCmp" title="Copy">—</button></div>
+      <div class="kv"><span class="k">Menu item</span><button class="v copy" id="ctxMi" title="Copy">—</button></div>
+      <div class="kv"><span class="k">Full URL</span><button class="v copy small" id="ctxUrl" title="Copy">—</button></div>
+    </div>
+    <button id="copyAllContext" class="primary">Copy full context block</button>
+
+    <h3 class="section-label">Deep link builder</h3>
+    <div class="row">
+      <input id="dlMi" type="text" placeholder="Menu item, e.g. SalesTableListPage" spellcheck="false">
+    </div>
+    <div class="row">
+      <input id="dlCmp" type="text" placeholder="Legal entity (optional)" spellcheck="false" class="narrow">
+      <button id="dlCopy" class="ghost">Copy link</button>
+      <button id="dlOpen" class="ghost">Open</button>
+    </div>
+    <p id="dlPreview" class="mono dim preview"></p>
+  </section>
+
+  <!-- ── TABLES ──────────────────────────────────────────────── -->
+  <section id="tab-tables" class="panel">
+    <div class="row">
+      <input id="tblSearch" type="text" placeholder="Search 120+ standard tables… e.g. purch" spellcheck="false" autofocus>
+    </div>
+    <div id="tblResults" class="results"></div>
+    <div class="row gap-top">
+      <input id="tblRaw" type="text" placeholder="Or type any table name" spellcheck="false">
+      <button id="tblRawOpen" class="ghost">Open</button>
+    </div>
+    <p class="dim tiny">Opens in SysTableBrowser in the current environment and legal entity. Requires table browser permission in that environment.</p>
+  </section>
+
+  <!-- ── DATA ────────────────────────────────────────────────── -->
+  <section id="tab-data" class="panel">
+    <h3 class="section-label">OData peek</h3>
+    <div class="row">
+      <input id="odEntity" type="text" placeholder="Public entity name, e.g. CustomersV3" spellcheck="false">
+    </div>
+    <div class="row">
+      <input id="odTop" type="number" value="10" min="1" max="1000" class="tiny-input" title="$top">
+      <label class="check"><input id="odCross" type="checkbox"> cross-company</label>
+      <button id="odOpen" class="ghost">Open JSON</button>
+    </div>
+    <p id="odPreview" class="mono dim preview"></p>
+
+    <h3 class="section-label">Support shortcuts</h3>
+    <div class="shortcut-list" id="shortcutList"></div>
+    <p class="dim tiny">Add your own menu-item shortcuts in Options.</p>
+  </section>
+
+  <!-- ── SNAPSHOT ────────────────────────────────────────────── -->
+  <section id="tab-snapshot" class="panel">
+    <p class="dim">One click gathers the full environment context, your notes, and a screenshot — ready to paste into Jira, ServiceNow, Zendesk or an email.</p>
+    <textarea id="snapNotes" rows="4" placeholder="What is the issue? Steps observed, error text, user affected…"></textarea>
+    <button id="snapCapture" class="primary">Capture ticket snapshot</button>
+    <p id="snapStatus" class="dim tiny"></p>
+    <pre id="snapPreview" class="snap-preview hidden"></pre>
+  </section>
+
+  <footer class="foot">
+    <a href="#" id="openOptions">Options</a>
+    <span class="dim">v1.0.0 · no data leaves your browser</span>
+  </footer>
+
+  <div id="toast" class="toast hidden">Copied</div>
+
+  <script src="tables.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
