@@ -48,18 +48,18 @@
       <div class="kv"><span class="k">Host</span><button class="v copy" id="ctxHost" title="Copy">—</button></div>
       <div class="kv"><span class="k">Legal entity</span><button class="v copy" id="ctxCmp" title="Copy">—</button></div>
       <div class="kv"><span class="k">Menu item</span><button class="v copy" id="ctxMi" title="Copy">—</button></div>
-      <div class="kv"><span class="k">Form name</span><button class="v copy" id="ctxForm" title="Copy — read live from the page">—</button></div>
+      <div class="kv"><span class="k">Form name</span><button class="v copy" id="ctxForm" title="Copy. Read live from the page.">—</button></div>
       <div class="kv"><span class="k">Full URL</span><button class="v copy small" id="ctxUrl" title="Copy">—</button></div>
     </div>
     <button id="copyAllContext" class="primary">Copy full context block</button>
 
     <h3 class="section-label">Find the table behind this page</h3>
     <div class="info-box">
-      The form name above is usually your best clue — list pages are commonly named after their primary table (e.g. <span class="mono">CustTableListPage</span> → <span class="mono">CustTable</span>). To confirm it from D365 itself:
+      The form name above is usually your best clue. List pages are often named after their primary table (e.g. <span class="mono">CustTableListPage</span> comes from <span class="mono">CustTable</span>). If you need to be sure, ask D365 directly:
       <ol>
         <li>Right-click any field on the form</li>
-        <li>Choose <b>Form information</b> → <b>Form name</b></li>
-        <li>The <b>Administration</b> tab lists the data sources (tables)</li>
+        <li>Choose <b>Form information</b>, then <b>Form name</b></li>
+        <li>The <b>Administration</b> tab lists the data sources</li>
       </ol>
     </div>
 
@@ -85,7 +85,7 @@
       <input id="tblRaw" type="text" placeholder="Or type any table name" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
       <button id="tblRawOpen" class="ghost">Open</button>
     </div>
-    <p class="dim tiny">Opens in SysTableBrowser in the current environment and legal entity. Requires table browser permission in that environment.</p>
+    <p class="dim tiny">Opens in SysTableBrowser in the current environment and legal entity. You'll need table browser permission in that environment.</p>
   </section>
 
   <!-- ── DATA ────────────────────────────────────────────────── -->
@@ -108,7 +108,7 @@
 
   <!-- ── SNAPSHOT ────────────────────────────────────────────── -->
   <section id="tab-snapshot" class="panel">
-    <p class="dim">One click gathers the full environment context, your notes, and a screenshot — ready to paste into Jira, ServiceNow, Zendesk or an email.</p>
+    <p class="dim">One click gathers the full environment context, your notes, and a screenshot.</p>
 
     <h3 class="section-label">User's journey in this tab</h3>
     <div id="trailList" class="trail-list"></div>
