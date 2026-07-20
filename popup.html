@@ -34,9 +34,20 @@
       <div class="kv"><span class="k">Host</span><button class="v copy" id="ctxHost" title="Copy">—</button></div>
       <div class="kv"><span class="k">Legal entity</span><button class="v copy" id="ctxCmp" title="Copy">—</button></div>
       <div class="kv"><span class="k">Menu item</span><button class="v copy" id="ctxMi" title="Copy">—</button></div>
+      <div class="kv"><span class="k">Form name</span><button class="v copy" id="ctxForm" title="Copy — read live from the page">—</button></div>
       <div class="kv"><span class="k">Full URL</span><button class="v copy small" id="ctxUrl" title="Copy">—</button></div>
     </div>
     <button id="copyAllContext" class="primary">Copy full context block</button>
+
+    <h3 class="section-label">Find the table behind this page</h3>
+    <div class="info-box">
+      The form name above is usually your best clue — list pages are commonly named after their primary table (e.g. <span class="mono">CustTableListPage</span> → <span class="mono">CustTable</span>). To confirm it from D365 itself:
+      <ol>
+        <li>Right-click any field on the form</li>
+        <li>Choose <b>Form information</b> → <b>Form name</b></li>
+        <li>The <b>Administration</b> tab lists the data sources (tables)</li>
+      </ol>
+    </div>
 
     <h3 class="section-label">Deep link builder</h3>
     <div class="row">
@@ -92,7 +103,7 @@
 
   <footer class="foot">
     <a href="#" id="openOptions">Options</a>
-    <span class="dim">v1.0.0 · no data leaves your browser</span>
+    <span class="dim">v1.1.0 · no data leaves your browser</span>
   </footer>
 
   <div id="toast" class="toast hidden">Copied</div>

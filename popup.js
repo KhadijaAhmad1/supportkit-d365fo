@@ -37,6 +37,17 @@ async function readActiveTab() {
     ctx.isD365 = u.host.endsWith(".dynamics.com");
     ctx.tabId = tab.id;
     ctx.envRule = matchEnvironment(tab.url);
+
+    // Ask the content script for live page context (form names from DOM)
+    if (ctx.isD365 && tab.id != null) {
+      try {
+        const page = await chrome.tabs.sendMessage(tab.id, { type: "SK_GET_PAGE_CONTEXT" });
+        if (page) {
+          ctx.formNames = page.formNames || [];
+          ctx.topForm = page.topForm || null;
+        }
+      } catch (e) { /* content script not ready on this tab */ }
+    }
   } catch (e) { /* restricted page */ }
 }
 
@@ -58,6 +69,11 @@ function renderContext() {
   setCopy("ctxHost", ctx.host || "—", !!ctx.host);
   setCopy("ctxCmp", ctx.cmp || "not in URL", !!ctx.cmp);
   setCopy("ctxMi", ctx.mi || "not in URL", !!ctx.mi);
+  setCopy("ctxForm", ctx.topForm || "not detected", !!ctx.topForm);
+  if (ctx.topForm && ctx.formNames && ctx.formNames.length > 1) {
+    $("ctxForm").textContent = `${ctx.topForm}  (+${ctx.formNames.length - 1} more)`;
+    $("ctxForm").title = "Copy — all forms on page: " + ctx.formNames.join(", ");
+  }
   setCopy("ctxUrl", ctx.url || "—", !!ctx.url);
 
   const badge = $("envBadge");
@@ -86,6 +102,7 @@ function buildContextBlock(notes) {
     `Host        : ${ctx.host || "-"}`,
     `Legal entity: ${ctx.cmp || "-"}`,
     `Menu item   : ${ctx.mi || "-"}`,
+    `Form name   : ${ctx.topForm || "-"}`,
     `URL         : ${ctx.url || "-"}`,
     `Captured    : ${new Date().toISOString().replace("T", " ").slice(0, 19)} UTC`,
   ];

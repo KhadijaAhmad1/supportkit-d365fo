@@ -4,6 +4,23 @@
 // locally via chrome.storage.sync. Nothing is read from the page
 // beyond the URL; nothing is transmitted anywhere.
 
+// Respond to popup requests for live page context (form names).
+// D365 F&O marks form containers with data-dyn-form-name attributes.
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg && msg.type === "SK_GET_PAGE_CONTEXT") {
+    const names = [...document.querySelectorAll("[data-dyn-form-name]")]
+      .map(el => el.getAttribute("data-dyn-form-name"))
+      .filter(Boolean);
+    const unique = [...new Set(names)];
+    sendResponse({
+      formNames: unique,
+      topForm: unique.length ? unique[unique.length - 1] : null,
+      title: document.title || null,
+    });
+  }
+  return true;
+});
+
 (async function () {
   const stored = await chrome.storage.sync.get(["environments", "bannerEnabled"]);
   if (stored.bannerEnabled === false) return;
