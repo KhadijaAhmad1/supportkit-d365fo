@@ -85,6 +85,6 @@ async function saveAll() {
     bannerEnabled: $("bannerEnabled").checked,
   });
 
-  $("status").textContent = "Saved";
-  setTimeout(() => $("status").textContent = "", 1600);
+  $("status").classList.add("show");
+  setTimeout(() => $("status").classList.remove("show"), 1600);
 }
