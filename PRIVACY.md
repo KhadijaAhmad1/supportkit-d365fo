@@ -1,4 +1,4 @@
-# Privacy Policy — SupportKit for D365 F&O
+# Privacy Policy for SupportKit for D365 F&O
 
 **Effective date: July 2026**
 
@@ -13,7 +13,7 @@ SupportKit collects no data. This policy exists because extension stores require
 ## What the extension does NOT do
 
 - No analytics, telemetry, usage tracking or crash reporting
-- No external network requests of any kind — the source contains no fetch or XHR code
+- No external network requests of any kind. The source contains no fetch or XHR code
 - No reading of page content, form data, or business data
 - No cookies, no fingerprinting, no identifiers
 - No data sold, shared, or transferred to anyone, ever

@@ -1,28 +1,26 @@
 # SupportKit for D365 F&O
 
-**The support engineer's toolkit for Microsoft Dynamics 365 Finance & Operations.**
+**A toolkit for support engineers working on Microsoft Dynamics 365 Finance & Operations.**
 
-One-click ticket context capture. An unmistakable environment guardian. Instant table browser and OData access. Built by a D365 support engineer, for D365 support teams everywhere.
+One-click ticket context capture. An environment guardian that stops you touching the wrong tenant. Fast table browser and OData access. Written by a D365 support engineer who got tired of doing all of this by hand.
 
-![Manifest V3](https://img.shields.io/badge/Manifest-V3-3ddc97) ![Chrome](https://img.shields.io/badge/Chrome-supported-3ddc97) ![Edge](https://img.shields.io/badge/Edge-supported-3ddc97) ![Privacy](https://img.shields.io/badge/data%20collected-none-3ddc97) ![Licence](https://img.shields.io/badge/licence-MIT-blue)
+![Manifest V3](https://img.shields.io/badge/Manifest-V3-2266E3) ![Chrome](https://img.shields.io/badge/Chrome-supported-2266E3) ![Edge](https://img.shields.io/badge/Edge-supported-2266E3) ![Privacy](https://img.shields.io/badge/data%20collected-none-2266E3) ![Licence](https://img.shields.io/badge/licence-MIT-blue)
 
 ---
 
 ## The problem
 
-Every D365 F&O support engineer runs the same loop dozens of times a week: **triage, investigate, document, resolve.** The platform gives almost no help with any of it.
+Every D365 F&O support engineer runs the same loop several dozen times a week. Triage. Investigate. Document. Resolve. The platform gives you almost nothing to help with any of it.
 
-- Working out *where* a user's problem lives — which environment, legal entity, form and table — takes several clicks and a good memory for URL syntax.
-- Touching the wrong environment is a career-limiting mistake, yet PROD, UAT and sandbox look pixel-for-pixel identical.
-- Writing up a ticket means manually copying the URL, typing the environment name, noting the legal entity, taking a screenshot, and pasting it all into Jira, ServiceNow, Zendesk or an email — over and over.
-- Opening the table browser means memorising `?mi=SysTableBrowser&tableName=...` and rebuilding it by hand.
+Working out where a user's problem lives (which environment, legal entity, form and table) takes several clicks and a good memory for URL syntax. Touching the wrong environment is a career-limiting mistake, and yet PROD, UAT and sandbox look pixel-for-pixel identical in the browser. Writing up a ticket means copying the URL by hand, typing the environment name, noting the legal entity, taking a screenshot, and pasting all of that into Jira or ServiceNow. Every time. Opening the table browser means remembering `?mi=SysTableBrowser&tableName=...` and building the URL yourself.
 
-Existing extensions serve **developers** — class runners, form openers, nav bar colouring. Nothing serves the support workflow itself. SupportKit fills that gap.
+Other extensions exist, but they serve developers. Class runners. Form openers. Nav bar colouring. Nothing serves the support workflow itself. That is the gap SupportKit fills.
 
 ## What it does
 
-### 📋 Ticket Snapshot — the headline feature
-One click gathers everything a ticket needs:
+### Ticket Snapshot, the headline feature
+
+One click gathers what a ticket needs:
 
 ```
 ── D365 F&O Support Context ──────────────
@@ -30,51 +28,70 @@ Environment : UAT
 Host        : contoso-uat.sandbox.operations.dynamics.com
 Legal entity: GBRK
 Menu item   : SalesTableListPage
+Form name   : SalesTable
 URL         : https://contoso-uat.sandbox.operations.dynamics.com/?cmp=GBRK&mi=SalesTableListPage
-Captured    : 2026-07-16 09:41:02 UTC
+Captured    : 2026-07-20 09:41:02 UTC
+
+User's journey (last 4 steps in this tab):
+  1. 09:38:14  DefaultDashboard
+  2. 09:39:47  SalesTableListPage (form: SalesTable)
+  3. 09:40:31  SalesTableListPage (form: SalesTable)
+  4. 09:41:02  SalesTableListPage (form: SalesTable)  [current]
 
 Notes:
-Sales order SO-004512 will not post. Error appears after
-clicking Confirm. User: J. Smith, affects GBRK only.
+Sales order SO-004512 won't post. Error shows up after clicking
+Confirm. User: J. Smith. Only happens in GBRK.
 ──────────────────────────────────────────
 ```
 
-The formatted block is copied to your clipboard and a screenshot of the page is downloaded — paste both straight into your ticketing system. What used to take five minutes takes five seconds.
+The block gets copied to your clipboard and a screenshot of the page downloads to your Downloads folder. Paste both into your ticketing system. What used to be five minutes of copy-paste is five seconds.
 
-### 🛡 Environment Guardian
-Define your own rules: *if the URL contains `-prod`, label it PRODUCTION in red.* SupportKit paints a coloured strip along the top of every matching page and pins a badge in the corner. Production environments pulse. You will never again wonder which tab is safe to touch.
+### Environment Guardian
 
-### 🗂 Table Browser, without the URL gymnastics
-Fuzzy-search 120+ curated standard tables — grouped by module, each with a plain-English description — and open any of them in `SysTableBrowser` in one click, in the correct environment and legal entity. Add your own custom and ISV tables in Options. A raw input handles anything not on the list.
+You define the rules. If the URL contains `-prod`, label it PRODUCTION in red. If it contains `sandbox`, call it SANDBOX in green. SupportKit paints a coloured strip along the top of any matching page and pins a badge in the corner. Production environments pulse so you notice them. You stop wondering which tab is safe to touch.
 
-### 🔍 Support shortcuts
-Curated one-click access to the lookups support engineers reach for daily: the table ID ↔ name view (`SysTableIdView`) for tracing `RefTableId`/`RefRecId` references, batch jobs, the outgoing email queue, security role assignments and the attachments register. Add unlimited shortcuts of your own to any menu item.
+### Session trail
 
-### 🌐 OData peek
-Type a public entity name, choose `$top` and cross-company, and open the JSON straight in a new tab — the fastest sanity check there is when debugging an integration.
+Every navigation you make inside a D365 tab gets recorded in that tab's own session storage, which clears when you close the tab. Form name, menu item, legal entity, timestamp. The Snapshot tab shows the last ten steps as a numbered timeline. By default the trail gets included in your ticket snapshot. When a user reports "it broke and I don't remember what I did," you now have the exact sequence of clicks that led there.
 
-### 🔗 Deep link builder
-Build a clean `?cmp=&mi=` link to any form and send it to a user, so "go to Accounts receivable, then…" becomes a single click for them.
+### Table browser without the URL gymnastics
+
+Search 120+ standard tables grouped by module. Each has a short plain-English description. Click one and it opens in `SysTableBrowser` in the current environment and legal entity. Add your own custom or ISV tables in Options. A raw input handles anything not on the list.
+
+### Support shortcuts
+
+One-click access to the lookups support engineers reach for daily. The `SysTableIdView` table for resolving `RefTableId` and `RefRecId` values. Batch jobs. The outgoing email queue. Security role assignments. The attachments register. Add unlimited shortcuts of your own to any menu item.
+
+### OData peek
+
+Type a public entity name, choose `$top` and cross-company, and the JSON opens in a new tab. Fastest sanity check there is when you're debugging an integration.
+
+### Deep link builder
+
+Build a clean `?cmp=&mi=` link to any form and send it to a user. So "go to Accounts receivable, then All customers, then..." becomes a single click for them.
 
 ## Installation
 
-**From the store** *(recommended)* — search "SupportKit for D365 F&O" on the Chrome Web Store or Edge Add-ons.
+**From the store** (recommended): search "SupportKit for D365 F&O" on the Chrome Web Store or Edge Add-ons.
 
 **From source:**
+
 1. Download or clone this repository
 2. Open `chrome://extensions` (or `edge://extensions`)
-3. Enable **Developer mode**
-4. Click **Load unpacked** and select the folder
+3. Enable Developer mode
+4. Click Load unpacked and select the folder
 
-Then open **Options** and define your environments — thirty seconds of setup that pays back on the first ticket.
+Open Options and define your environments. Thirty seconds of setup that pays back on the first ticket.
 
-## Privacy — genuinely none of your data is touched
+**If the session trail looks empty after installing or updating:** toggle the extension off and on in `chrome://extensions`, then close and reopen your D365 tab. Content scripts don't always reinject into tabs that were already open before install.
 
-SupportKit was designed to pass the strictest corporate IT review:
+## Privacy
 
-- **No analytics, no telemetry, no tracking of any kind**
-- **No external network calls** — the extension contains zero `fetch`/XHR code
-- **Nothing is read from page content** — only the tab URL is parsed
+SupportKit was built to pass strict corporate IT review. Nothing about your data leaves your browser.
+
+- No analytics, no telemetry, no tracking of any kind
+- No external network calls. The source contains zero `fetch` or XHR code
+- Nothing gets read from page content beyond form name attributes and the tab URL
 - Settings live in your browser's own extension storage
 - Permissions are minimal: `storage`, `activeTab`, and host access to `*.dynamics.com` only
 
@@ -82,23 +99,22 @@ See [PRIVACY.md](PRIVACY.md) for the full policy.
 
 ## Compatibility
 
-- Google Chrome and Microsoft Edge (Manifest V3)
-- Dynamics 365 Finance & Operations, Supply Chain Management and Commerce HQ — any environment hosted on `*.dynamics.com`
-- Table browser access requires the corresponding permission in your environment; SupportKit opens standard D365 URLs and never bypasses security
+Google Chrome and Microsoft Edge (Manifest V3). Dynamics 365 Finance & Operations, Supply Chain Management and Commerce HQ. Any environment hosted on `*.dynamics.com`.
+
+Table browser access needs the right permission in your environment. SupportKit opens standard D365 URLs. It never bypasses security.
 
 ## Roadmap
 
-- Record-level deep links (`&q=` support)
-- Session trail — retrace the forms you visited during an investigation
 - Snapshot templates per ticketing system (Jira, ServiceNow, Azure DevOps markdown)
-- Label / EDT lookup helpers
+- Label and EDT lookup helpers
+- Optional bring-your-own-key AI ticket summariser. Takes your rough notes plus the captured context and journey and turns them into a structured Jira or ServiceNow description. Kept optional and BYO-key so the current zero-external-calls default stays intact.
 
-Suggestions and issues are very welcome — this tool grows from real support-desk pain.
+Suggestions and issues are welcome. This tool grows from real support-desk pain.
 
 ## Author
 
-Built by **Khadija** — Dev Support Engineer & AI Innovation Lead working with D365 F&O in production, who got tired of assembling ticket context by hand.
+Built by Khadija. Dev Support Engineer and AI Innovation Lead working with D365 F&O in production. Got tired of assembling ticket context by hand and did something about it.
 
 ## Licence
 
-MIT — free for personal and commercial use. See [LICENSE](LICENSE).
+MIT. Free for personal and commercial use. See [LICENSE](LICENSE).
