@@ -109,6 +109,11 @@
   <!-- ── SNAPSHOT ────────────────────────────────────────────── -->
   <section id="tab-snapshot" class="panel">
     <p class="dim">One click gathers the full environment context, your notes, and a screenshot — ready to paste into Jira, ServiceNow, Zendesk or an email.</p>
+
+    <h3 class="section-label">User's journey in this tab</h3>
+    <div id="trailList" class="trail-list"></div>
+    <label class="check" style="margin-bottom: 10px;"><input id="trailInclude" type="checkbox" checked> Include journey in snapshot</label>
+
     <textarea id="snapNotes" rows="4" placeholder="What is the issue? Steps observed, error text, user affected…"></textarea>
     <button id="snapCapture" class="primary">Capture ticket snapshot</button>
     <p id="snapStatus" class="dim tiny"></p>
@@ -117,7 +122,7 @@
 
   <footer class="foot">
     <a href="#" id="openOptions">Options</a>
-    <span class="dim">v1.3.1 · no data leaves your browser</span>
+    <span class="dim">v1.4.0 · no data leaves your browser</span>
   </footer>
 
   <div id="toast" class="toast hidden">Copied</div>

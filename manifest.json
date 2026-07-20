@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SupportKit for D365 F&O",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "The support engineer's toolkit for Dynamics 365 Finance & Operations. One-click ticket context capture, environment guardian, table browser and OData shortcuts.",
   "author": "Khadija",
   "icons": {

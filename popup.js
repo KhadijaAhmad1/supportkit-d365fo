@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderContext();
   renderTables("");
   renderShortcuts();
+  renderTrail();
   wireEvents();
 });
 
@@ -38,13 +39,14 @@ async function readActiveTab() {
     ctx.tabId = tab.id;
     ctx.envRule = matchEnvironment(tab.url);
 
-    // Ask the content script for live page context (form names from DOM)
+    // Ask the content script for live page context (form names + trail)
     if (ctx.isD365 && tab.id != null) {
       try {
         const page = await chrome.tabs.sendMessage(tab.id, { type: "SK_GET_PAGE_CONTEXT" });
         if (page) {
           ctx.formNames = page.formNames || [];
           ctx.topForm = page.topForm || null;
+          ctx.trail = page.trail || [];
         }
       } catch (e) { /* content script not ready on this tab */ }
     }
@@ -106,9 +108,49 @@ function buildContextBlock(notes) {
     `URL         : ${ctx.url || "-"}`,
     `Captured    : ${new Date().toISOString().replace("T", " ").slice(0, 19)} UTC`,
   ];
+
+  const includeEl = $("trailInclude");
+  const includeTrail = includeEl ? includeEl.checked : false;
+  if (includeTrail && ctx.trail && ctx.trail.length) {
+    lines.push("", `User's journey (last ${ctx.trail.length} step${ctx.trail.length === 1 ? "" : "s"} in this tab):`);
+    ctx.trail.forEach((s, i) => {
+      const time = new Date(s.t).toISOString().slice(11, 19);
+      const label = s.form ? `${s.mi || "(no mi)"} (form: ${s.form})` : (s.mi || "(no mi)");
+      lines.push(`  ${i + 1}. ${time} — ${label}${i === ctx.trail.length - 1 ? "  [current]" : ""}`);
+    });
+  }
+
   if (notes && notes.trim()) lines.push("", "Notes:", notes.trim());
   lines.push("──────────────────────────────────────────");
   return lines.join("\n");
+}
+
+function renderTrail() {
+  const box = $("trailList");
+  if (!box) return;
+  const trail = ctx.trail || [];
+  if (!trail.length) {
+    box.innerHTML = `<div class="trail-empty">No steps recorded yet.<br>Click through a few pages in your D365 tab, then reopen the popup.</div>`;
+    return;
+  }
+  box.innerHTML = "";
+  trail.forEach((s, i) => {
+    const isLast = i === trail.length - 1;
+    const step = document.createElement("div");
+    step.className = "trail-step" + (isLast ? " current" : "");
+    const time = new Date(s.t).toISOString().slice(11, 19);
+    step.innerHTML = `
+      <div class="trail-num">${i + 1}</div>
+      <div class="trail-body">
+        <div class="trail-mi">${esc(s.mi || "(no mi)")}</div>
+        <div class="trail-meta">
+          <span class="trail-time">${time}</span>${s.form ? ` · form: ${esc(s.form)}` : ""}${s.cmp ? ` · ${esc(s.cmp)}` : ""}
+        </div>
+      </div>
+    `;
+    box.appendChild(step);
+  });
+  box.scrollTop = box.scrollHeight;
 }
 
 // ── Deep link builder ──────────────────────────────────────────
