@@ -65,10 +65,10 @@
 
     <h3 class="section-label">Deep link builder</h3>
     <div class="row">
-      <input id="dlMi" type="text" placeholder="Menu item, e.g. SalesTableListPage" spellcheck="false">
+      <input id="dlMi" type="text" placeholder="Menu item, e.g. SalesTableListPage" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
     </div>
     <div class="row">
-      <input id="dlCmp" type="text" placeholder="Legal entity (optional)" spellcheck="false" class="narrow">
+      <input id="dlCmp" type="text" placeholder="Legal entity (optional)" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off" class="narrow">
       <button id="dlCopy" class="ghost">Copy link</button>
       <button id="dlOpen" class="ghost">Open</button>
     </div>
@@ -78,11 +78,11 @@
   <!-- ── TABLES ──────────────────────────────────────────────── -->
   <section id="tab-tables" class="panel">
     <div class="row">
-      <input id="tblSearch" type="text" placeholder="Search 120+ standard tables… e.g. purch" spellcheck="false" autofocus>
+      <input id="tblSearch" type="text" placeholder="Search 120+ standard tables… e.g. purch" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off" autofocus>
     </div>
     <div id="tblResults" class="results"></div>
     <div class="row gap-top">
-      <input id="tblRaw" type="text" placeholder="Or type any table name" spellcheck="false">
+      <input id="tblRaw" type="text" placeholder="Or type any table name" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
       <button id="tblRawOpen" class="ghost">Open</button>
     </div>
     <p class="dim tiny">Opens in SysTableBrowser in the current environment and legal entity. Requires table browser permission in that environment.</p>
@@ -92,7 +92,7 @@
   <section id="tab-data" class="panel">
     <h3 class="section-label">OData peek</h3>
     <div class="row">
-      <input id="odEntity" type="text" placeholder="Public entity name, e.g. CustomersV3" spellcheck="false">
+      <input id="odEntity" type="text" placeholder="Public entity name, e.g. CustomersV3" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
     </div>
     <div class="row">
       <input id="odTop" type="number" value="10" min="1" max="1000" class="tiny-input" title="$top">
@@ -117,7 +117,7 @@
 
   <footer class="foot">
     <a href="#" id="openOptions">Options</a>
-    <span class="dim">v1.3.0 · no data leaves your browser</span>
+    <span class="dim">v1.3.1 · no data leaves your browser</span>
   </footer>
 
   <div id="toast" class="toast hidden">Copied</div>
