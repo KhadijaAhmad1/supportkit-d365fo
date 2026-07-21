@@ -1,7 +1,5 @@
 # Chrome Web Store and Edge Add-ons Listing Copy
 
-Paste-ready content for both stores. Review and adjust wording before submission so the final listing is in your own voice.
-
 ---
 
 ## Name
@@ -15,7 +13,15 @@ Workflow & Planning (Chrome) / Productivity (Edge)
 
 ## Detailed description
 
-Every D365 Finance & Operations support engineer runs the same loop dozens of times a week: triage, investigate, document, resolve. SupportKit is the first extension built around that loop rather than around developer tooling.
+SupportKit is a toolkit built for people who support Dynamics 365 Finance and Operations day to day. It grew out of a simple problem: every ticket needs the same handful of details, environment, legal entity, form, menu item, and getting them by hand takes longer than it should.
+
+The core feature is Ticket Snapshot. One click copies a clean, formatted block of context to your clipboard and downloads a screenshot of the page. Paste both into Jira, ServiceNow, Zendesk, or an email and the ticket is already half written.
+
+SupportKit also tracks the last few pages visited in a tab, so if a user reports something broke but can't say what they clicked, you have the actual sequence of steps that led there. An Environment Guardian paints a coloured strip and badge on the page so production, UAT, sandbox and Trial are never confused for one another. A searchable list of over 120 standard tables opens straight into SysTableBrowser, and an OData panel lets you peek at any entity's data without leaving the browser.
+
+Nothing here reaches outside your browser. There's no analytics, no tracking, and no external network calls in the code at all. Settings live in your own browser storage.
+
+Not affiliated with or endorsed by Microsoft.
 
 TICKET SNAPSHOT
 One click copies a formatted context block to your clipboard. Environment, host, legal entity, menu item, full URL, timestamp and your notes. A screenshot of the page downloads at the same time. Paste both straight into Jira, ServiceNow, Zendesk or an email. Ticket documentation drops from minutes to seconds.
