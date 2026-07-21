@@ -113,7 +113,7 @@ Suggestions and issues are welcome. This tool grows from real support-desk pain.
 
 ## Author
 
-Built by Khadija. Dev Support Engineer and AI Innovation Lead working with D365 F&O in production. Got tired of assembling ticket context by hand and did something about it.
+Built by Khadija. AI Innovation Lead working with D365 F&O in production. Got tired of assembling ticket context by hand and did something about it.
 
 ## Licence
 
