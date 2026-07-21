@@ -21,7 +21,6 @@ SupportKit collects no data. This policy exists because extension stores require
 ## Permissions explained
 
 | Permission | Why |
-|---|---|
 | `storage` | Save your settings in your own browser |
 | `activeTab` | Read the current tab URL and capture a screenshot when you ask |
 | `https://*.dynamics.com/*` | Show the environment guardian strip on D365 pages |
